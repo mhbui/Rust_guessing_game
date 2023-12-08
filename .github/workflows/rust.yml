@@ -11,8 +11,16 @@ env:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        platform:
+          - os: ubuntu-latest
+            file: rust_guessing_game
+          - os: windows-latest
+            file: rust_guessing_game.exe
 
-    runs-on: ubuntu-latest
+
+    runs-on: ${{ matrix.platform.os }}
 
     steps:
     - uses: actions/checkout@v3
@@ -20,5 +28,5 @@ jobs:
       run: cargo build --verbose
     - uses: actions/upload-artifact@v3
       with:
-        name: guessinggame.exe
-        path: target/debug/rust_guessing_game
+        name: guessinggame-${{ matrix.platform.os }}
+        path: target/debug/${{ matrix.platform.file }}
