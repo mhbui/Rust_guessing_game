@@ -18,3 +18,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build
       run: cargo build --verbose
+    - uses: actions/upload-artifact@v3
+      with:
+        name: guessinggame.exe
+        path: target/debug/rust_guessing_game
